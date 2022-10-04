@@ -15,7 +15,8 @@ else
 endif
 badd +36 src/api.ts
 badd +22 src/context/GameContext.tsx
-badd +8 src/main.tsx
+badd +9 src/main.tsx
+badd +0 src/App.tsx
 argglobal
 %argdel
 $argadd src/api.ts
@@ -34,16 +35,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 23 - ((10 * winheight(0) + 14) / 28)
+let s:l = 22 - ((10 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 23
+keepjumps 22
 normal! 0
 tabnext
-edit src/main.tsx
+edit src/App.tsx
 argglobal
-balt src/context/GameContext.tsx
+balt src/main.tsx
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -54,13 +55,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 9 - ((8 * winheight(0) + 14) / 28)
+let s:l = 11 - ((10 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 9
-normal! 025|
-tabnext 1
+keepjumps 11
+normal! 0
+tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

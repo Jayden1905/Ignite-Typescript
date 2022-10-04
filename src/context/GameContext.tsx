@@ -1,5 +1,11 @@
 import axios from "axios";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { newGamesUrl } from "../api";
 
 type GameContextProviderProps = {
@@ -7,10 +13,8 @@ type GameContextProviderProps = {
 };
 
 type GameContextProps = {
-  fetchNewGames: () => void;
-  getNewGames: () => object;
-  fetchPopularGames: () => void;
-  fetchUpcommingGames: () => void;
+  getNewGames: () => Array<any>;
+  isLoading: () => boolean;
 };
 
 const GameContext = createContext({} as GameContextProps);
@@ -22,26 +26,28 @@ export function useGameContext() {
 export default function GameContextProvider({
   children,
 }: GameContextProviderProps) {
-  const [newGames, setNewGames] = useState({});
+  const [newGames, setNewGames] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const fetchNewGames = async () => {
-    const newGamesData = await axios.get(newGamesUrl());
-    setNewGames(newGamesData.data.results);
-  };
+  useEffect(() => {
+    const loadData = async () => {
+      const newGamesData = await axios.get(newGamesUrl());
+      setNewGames(newGamesData.data.results);
+      setLoading(false);
+    };
+
+    loadData();
+  }, []);
 
   const getNewGames = () => newGames;
 
-  function fetchPopularGames() {}
-
-  function fetchUpcommingGames() {}
+  const isLoading = () => loading;
 
   return (
     <GameContext.Provider
       value={{
-        fetchNewGames,
-        fetchPopularGames,
-        fetchUpcommingGames,
         getNewGames,
+        isLoading,
       }}
     >
       {children}
