@@ -22,7 +22,7 @@ export const Home: React.FC<HomeProps> = () => {
               >
                 <h3>{game.name}</h3>
                 <p>{game.released}</p>
-                // <img src={game.background_image} />
+                <img src={game.background_image} alt={game.name} />
               </div>
             ))}
           </div>
