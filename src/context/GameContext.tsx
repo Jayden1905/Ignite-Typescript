@@ -6,7 +6,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { newGamesUrl, popularGamesUrl, upcommingGamesUrl } from "../api";
+import {
+  gameDetailsUrl,
+  newGamesUrl,
+  popularGamesUrl,
+  upcommingGamesUrl,
+} from "../api";
 
 type GameContextProviderProps = {
   children: ReactNode;
@@ -16,6 +21,8 @@ type GameContextProps = {
   getNewGames: () => Array<any>;
   getPopularGames: () => Array<any>;
   getUpcommingGames: () => Array<any>;
+  fetchGameDetail: (gameId: number) => void;
+  getGameDetail: () => Array<any>;
   isLoading: () => boolean;
 };
 
@@ -32,6 +39,7 @@ export default function GameContextProvider({
   const [popularGames, setPopularGames] = useState([]);
   const [upcommingGames, setUpcommingGames] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [gameDetail, setGameDetail] = useState([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -50,9 +58,15 @@ export default function GameContextProvider({
     loadData();
   }, []);
 
+  async function fetchGameDetail(gameId: number) {
+    const gameDetailData = await axios.get(gameDetailsUrl(gameId));
+    setGameDetail(gameDetailData.data);
+  }
+
   const getNewGames = () => newGames;
   const getPopularGames = () => popularGames;
   const getUpcommingGames = () => upcommingGames;
+  const getGameDetail = () => gameDetail;
 
   const isLoading = () => loading;
 
@@ -63,6 +77,8 @@ export default function GameContextProvider({
         getPopularGames,
         isLoading,
         getUpcommingGames,
+        fetchGameDetail,
+        getGameDetail,
       }}
     >
       {children}

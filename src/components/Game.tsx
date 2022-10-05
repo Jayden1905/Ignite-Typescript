@@ -1,34 +1,41 @@
-import { motion, LazyMotion, domAnimation, m } from "framer-motion";
+import { motion } from "framer-motion";
 import { popup } from "../animation";
 
 type GameProps = {
   game: any;
+  setOpen: () => void;
+  loadGameDetail: (game_id: number) => void;
 };
 
-export const Game: React.FC<GameProps> = ({ game }) => {
-  const gameDetail = () => {
-    console.log(game.id);
+export const Game: React.FC<GameProps> = ({
+  game,
+  setOpen,
+  loadGameDetail,
+}) => {
+  const gameDetailHandler = () => {
+    setOpen();
+    loadGameDetail(game.id);
   };
 
   return (
-    <LazyMotion features={domAnimation}>
-      <m.div
-        onClick={gameDetail}
+    <>
+      <motion.div
+        onClick={gameDetailHandler}
         key={game.id}
-        className="game flex flex-col text-center rounded-2xl cursor-pointer min-h-[30vh] overflow-hidden mb-5"
+        className="game mb-5 flex min-h-[30vh] cursor-pointer flex-col overflow-hidden rounded-2xl text-center"
         style={{ boxShadow: "0px 5px 30px rgba(0, 0, 0, 0.2)" }}
         variants={popup}
         initial="hidden"
         animate="show"
       >
-        <h3 className="text-xl pt-4">{game.name}</h3>
-        <p className="opacity-50 text-lg">{game.released}</p>
-        <img
+        <motion.h3 className="pt-4 text-xl">{game.name}</motion.h3>
+        <motion.p className="text-lg opacity-50">{game.released}</motion.p>
+        <motion.img
           src={game.background_image}
           alt={game.name}
-          className="w-full object-cover aspect-auto h-[40vh]"
+          className="aspect-auto h-[40vh] w-full object-cover"
         />
-      </m.div>
-    </LazyMotion>
+      </motion.div>
+    </>
   );
 };
