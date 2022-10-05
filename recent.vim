@@ -13,15 +13,60 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +36 src/api.ts
-badd +22 src/context/GameContext.tsx
+badd +1 src/api.ts
+badd +55 src/context/GameContext.tsx
 badd +9 src/main.tsx
-badd +0 src/App.tsx
+badd +1 index.html
+badd +22 src/pages/Home.tsx
+badd +14 .gitignore
+badd +7 tailwind.config.cjs
+badd +14 src/components/Game.tsx
 argglobal
 %argdel
 $argadd src/api.ts
 tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
+edit src/pages/Home.tsx
+argglobal
+balt src/components/Game.tsx
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 22 - ((16 * winheight(0) + 14) / 28)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 22
+normal! 084|
+tabnext
+edit src/components/Game.tsx
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 14 - ((13 * winheight(0) + 14) / 28)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 14
+normal! 033|
+tabnext
 edit src/context/GameContext.tsx
 argglobal
 balt src/api.ts
@@ -35,16 +80,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 22 - ((10 * winheight(0) + 14) / 28)
+let s:l = 54 - ((11 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 22
-normal! 0
+keepjumps 54
+normal! 045|
 tabnext
-edit src/App.tsx
+edit src/api.ts
 argglobal
-balt src/main.tsx
+balt tailwind.config.cjs
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -55,13 +100,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 11 - ((10 * winheight(0) + 14) / 28)
+let s:l = 38 - ((14 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 11
-normal! 0
-tabnext 2
+keepjumps 38
+normal! 03|
+tabnext 3
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
