@@ -15,3 +15,13 @@ body {
 img {
   display: block;
 }
+
+.detail {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  font-family: "Abril Fatface", cursive;
+  font-weight: lighter;
+  color: #333;
+}

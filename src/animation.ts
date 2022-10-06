@@ -5,7 +5,12 @@ export const fade = {
   show: {
     opacity: 1,
     transition: {
-      ease: "easeOut",
+      duration: 0.75,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
       duration: 0.75,
     },
   },
@@ -13,16 +18,21 @@ export const fade = {
 
 export const popup = {
   hidden: {
-    y: 50,
     opacity: 0,
+    scale: 0.5,
   },
-
   show: {
-    y: 0,
     opacity: 1,
+    scale: 1,
     transition: {
-      duration: 0.75,
-      ease: "easeOut",
+      duration: 0.5,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.5,
+    transition: {
+      duration: 0.5,
     },
   },
 };

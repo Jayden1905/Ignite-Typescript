@@ -23,16 +23,19 @@ export const Game: React.FC<GameProps> = ({
       <motion.div
         onClick={gameDetailHandler}
         key={game.id}
-        layout
         className="game mb-5 flex min-h-[30vh] cursor-pointer flex-col overflow-hidden rounded-2xl text-center"
         style={{ boxShadow: "0px 5px 30px rgba(0, 0, 0, 0.2)" }}
         variants={popup}
         initial="hidden"
         animate="show"
+        layoutId={game.id}
       >
-        <motion.h3 className="pt-4 text-xl">{game.name}</motion.h3>
+        <motion.h3 layoutId={`title ${game.id}`} className="pt-4 text-xl">
+          {game.name}
+        </motion.h3>
         <motion.p className="text-lg opacity-50">{game.released}</motion.p>
         <motion.img
+          layoutId={`image ${game.id}`}
           src={game.background_image}
           alt={game.name}
           className="aspect-auto h-[40vh] w-full object-cover"

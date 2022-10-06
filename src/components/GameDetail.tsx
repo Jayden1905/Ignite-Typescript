@@ -1,5 +1,5 @@
 import ReactDom from "react-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useGameContext } from "../context/GameContext";
 // Images
 import playstation from "../assets/playstation.svg";
@@ -12,6 +12,7 @@ import gamepad from "../assets/gamepad.svg";
 import starFull from "../assets/star-full.png";
 import starEmpty from "../assets/star-empty.png";
 import { SyntheticEvent } from "react";
+import { fade, popup } from "../animation";
 
 type GameDetailProps = {
   game: any;
@@ -88,17 +89,17 @@ export default function ({ game, setOpen }: GameDetailProps) {
     <>
       {!loading && (
         <motion.div
-          layoutId={game.id}
           onClick={closeDetailHandler}
           className="detail shadow fixed w-full min-h-screen flex items-center justify-center top-0 z-10 overflow-y-scroll cursor-pointer"
+          exit={{ opacity: 0 }}
         >
           <motion.div
             layoutId={game.id}
-            className="bg-white absolute top-0 w-[80%] rounded-2xl p-20"
+            className="bg-white absolute top-0 w-[90%] rounded-2xl p-20"
           >
             <motion.div className="Stats flex justify-between">
               <div className="rating">
-                <motion.h3 layoutId={game.id} className="text-3xl">
+                <motion.h3 layoutId={`title ${game.id}`} className="text-3xl">
                   {game.name}
                 </motion.h3>
                 <p className="opacity-60 text-xl mt-4">Rating: {game.rating}</p>
@@ -123,6 +124,7 @@ export default function ({ game, setOpen }: GameDetailProps) {
             <motion.div className="media">
               <motion.img
                 src={game.background_image}
+                layoutId={`image ${game.id}`}
                 alt={game.name}
                 className="mt-10 w-full"
               />
