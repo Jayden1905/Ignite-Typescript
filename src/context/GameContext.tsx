@@ -8,6 +8,7 @@ import {
 } from "react";
 import {
   gameDetailsUrl,
+  gameScreenShotsUrl,
   newGamesUrl,
   popularGamesUrl,
   upcommingGamesUrl,
@@ -24,6 +25,8 @@ type GameContextProps = {
   fetchGameDetail: (gameId: number) => void;
   getGameDetail: () => Array<any>;
   isLoading: () => boolean;
+  gameDetailLoading: () => boolean;
+  getScreenShots: () => Array<any>;
 };
 
 const GameContext = createContext({} as GameContextProps);
@@ -40,6 +43,8 @@ export default function GameContextProvider({
   const [upcommingGames, setUpcommingGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gameDetail, setGameDetail] = useState([]);
+  const [isGameDetailLoading, setGeameDetailLoading] = useState(true);
+  const [screenShots, setScreenShots] = useState([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -59,8 +64,21 @@ export default function GameContextProvider({
   }, []);
 
   async function fetchGameDetail(gameId: number) {
+    resetGameDetail();
+
     const gameDetailData = await axios.get(gameDetailsUrl(gameId));
     setGameDetail(gameDetailData.data);
+
+    const screenShootsData = await axios.get(gameScreenShotsUrl(gameId));
+    setScreenShots(screenShootsData.data.results);
+
+    setGeameDetailLoading(false);
+  }
+
+  function resetGameDetail() {
+    setGeameDetailLoading(true);
+    setGameDetail([]);
+    setScreenShots([]);
   }
 
   const getNewGames = () => newGames;
@@ -69,6 +87,9 @@ export default function GameContextProvider({
   const getGameDetail = () => gameDetail;
 
   const isLoading = () => loading;
+
+  const gameDetailLoading = () => isGameDetailLoading;
+  const getScreenShots = () => screenShots;
 
   return (
     <GameContext.Provider
@@ -79,6 +100,8 @@ export default function GameContextProvider({
         getUpcommingGames,
         fetchGameDetail,
         getGameDetail,
+        gameDetailLoading,
+        getScreenShots,
       }}
     >
       {children}

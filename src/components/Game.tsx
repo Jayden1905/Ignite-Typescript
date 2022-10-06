@@ -15,6 +15,7 @@ export const Game: React.FC<GameProps> = ({
   const gameDetailHandler = () => {
     setOpen();
     loadGameDetail(game.id);
+    document.body.style.overflow = "hidden";
   };
 
   return (
@@ -22,6 +23,7 @@ export const Game: React.FC<GameProps> = ({
       <motion.div
         onClick={gameDetailHandler}
         key={game.id}
+        layout
         className="game mb-5 flex min-h-[30vh] cursor-pointer flex-col overflow-hidden rounded-2xl text-center"
         style={{ boxShadow: "0px 5px 30px rgba(0, 0, 0, 0.2)" }}
         variants={popup}
