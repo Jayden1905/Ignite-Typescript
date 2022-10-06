@@ -21,10 +21,12 @@ badd +14 .gitignore
 badd +7 tailwind.config.cjs
 badd +1 src/App.tsx
 badd +10 src/animation.ts
-badd +9 src/components/GameDetail.tsx
+badd +87 src/components/GameDetail.tsx
+badd +0 src/components/Loading.tsx
 argglobal
 %argdel
 $argadd src/api.ts
+tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
 edit src/pages/Home.tsx
@@ -39,11 +41,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 38 - ((17 * winheight(0) + 14) / 28)
+let s:l = 52 - ((17 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 38
+keepjumps 52
 normal! 06|
 tabnext
 edit src/components/GameDetail.tsx
@@ -58,12 +60,32 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 27 - ((15 * winheight(0) + 14) / 28)
+let s:l = 90 - ((11 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 27
-normal! 023|
+keepjumps 90
+normal! 09|
+tabnext
+edit src/components/Loading.tsx
+argglobal
+balt src/components/GameDetail.tsx
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 4 - ((3 * winheight(0) + 14) / 29)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 4
+normal! 06|
 tabnext 2
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

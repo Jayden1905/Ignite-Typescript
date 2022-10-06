@@ -4,6 +4,7 @@ import { Game } from "../components/Game";
 import { fade } from "../animation";
 import { useState } from "react";
 import GameDetail from "../components/GameDetail";
+import Loading from "../components/Loading";
 
 type HomeProps = {};
 
@@ -40,6 +41,7 @@ export const Home: React.FC<HomeProps> = () => {
         <AnimatePresence>
           {isOpen && <GameDetail game={gameDetail} setOpen={changeOpenState} />}
         </AnimatePresence>
+        {loading && <Loading />}
         {!loading && (
           <motion.div className="m-auto h-screen sm:p-20">
             <motion.h1
@@ -47,7 +49,7 @@ export const Home: React.FC<HomeProps> = () => {
               layout
               initial="hidden"
               animate="show"
-              className="mt-4 mb-20 p-4 text-4xl font-extrabold sm:p-0"
+              className="mb-20 p-4 text-4xl font-extrabold sm:p-0"
             >
               Upcomming Games
             </motion.h1>

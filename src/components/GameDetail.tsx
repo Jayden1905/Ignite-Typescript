@@ -1,5 +1,5 @@
 import ReactDom from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useGameContext } from "../context/GameContext";
 // Images
 import playstation from "../assets/playstation.svg";
@@ -12,7 +12,7 @@ import gamepad from "../assets/gamepad.svg";
 import starFull from "../assets/star-full.png";
 import starEmpty from "../assets/star-empty.png";
 import { SyntheticEvent } from "react";
-import { fade, popup } from "../animation";
+import { DetailLoader } from "./Loading";
 
 type GameDetailProps = {
   game: any;
@@ -87,6 +87,7 @@ export default function ({ game, setOpen }: GameDetailProps) {
 
   return ReactDom.createPortal(
     <>
+      {loading && <DetailLoader />}
       {!loading && (
         <motion.div
           onClick={closeDetailHandler}
@@ -95,7 +96,7 @@ export default function ({ game, setOpen }: GameDetailProps) {
         >
           <motion.div
             layoutId={game.id}
-            className="bg-white absolute top-0 w-[90%] rounded-2xl p-20"
+            className="bg-white absolute top-0 w-[90%] rounded-2xl sm:p-20 p-10"
           >
             <motion.div className="Stats flex justify-between">
               <div className="rating">
