@@ -44,6 +44,7 @@ export default function GameContextProvider({
   const [popularGames, setPopularGames] = useState([]);
   const [upcommingGames, setUpcommingGames] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [gameDetail, setGameDetail] = useState([]);
   const [isGameDetailLoading, setGeameDetailLoading] = useState(true);
   const [screenShots, setScreenShots] = useState([]);
