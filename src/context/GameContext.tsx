@@ -22,10 +22,12 @@ type GameContextProps = {
   getNewGames: () => Array<any>;
   getPopularGames: () => Array<any>;
   getUpcommingGames: () => Array<any>;
+  isLoading: () => boolean;
+
   fetchGameDetail: (gameId: number) => void;
   getGameDetail: () => Array<any>;
-  isLoading: () => boolean;
   gameDetailLoading: () => boolean;
+
   getScreenShots: () => Array<any>;
 };
 

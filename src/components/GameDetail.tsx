@@ -30,17 +30,22 @@ export default function ({ game, setOpen }: GameDetailProps) {
   };
 
   // Star rating
-  const getStars = () => {
-    const stars = [];
-    const rating = Math.floor(game.rating);
+  const countStars = () => {
+    const stars: any = [];
 
-    for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
+    const getStars = (n: number) => {
+      const rating = Math.floor(game.rating);
+
+      if (n > 5) {
+        return;
+      }
+
+      if (n <= rating) {
         stars.push(
           <img
             className="inline mt-4 w-8 h-8"
             alt="star"
-            key={i}
+            key={n}
             src={starFull}
           />
         );
@@ -49,12 +54,16 @@ export default function ({ game, setOpen }: GameDetailProps) {
           <img
             className="inline mt-4 w-8 h-8"
             alt="star"
-            key={i}
+            key={n}
             src={starEmpty}
           />
         );
       }
-    }
+
+      getStars(n + 1);
+    };
+
+    getStars(1);
 
     return stars;
   };
@@ -104,11 +113,11 @@ export default function ({ game, setOpen }: GameDetailProps) {
                   {game.name}
                 </motion.h3>
                 <p className="opacity-60 text-xl mt-4">Rating: {game.rating}</p>
-                {getStars()}
+                {countStars()}
               </div>
               <div className="info flex flex-col items-center">
                 <h3 className="text-3xl">Platforms</h3>
-                <div className="platforms flex justify-evenly flex-wrap gap-10 mt-10">
+                <motion.div className="platforms flex justify-evenly flex-wrap gap-10 mt-10">
                   {game.platforms.map((data: any) => {
                     return (
                       <img
@@ -119,7 +128,7 @@ export default function ({ game, setOpen }: GameDetailProps) {
                       />
                     );
                   })}
-                </div>
+                </motion.div>
               </div>
             </motion.div>
             <motion.div className="media">
