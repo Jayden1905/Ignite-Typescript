@@ -11,6 +11,7 @@ import {
   gameScreenShotsUrl,
   newGamesUrl,
   popularGamesUrl,
+  searchGameUrl,
   upcommingGamesUrl,
 } from "../api";
 
@@ -29,6 +30,10 @@ type GameContextProps = {
   gameDetailLoading: () => boolean;
 
   getScreenShots: () => Array<any>;
+
+  fetchSearchGames: (gameName: string) => void;
+  getSearchGames: () => Array<any>;
+  setSearchGamesEmpty: () => void;
 };
 
 const GameContext = createContext({} as GameContextProps);
@@ -49,6 +54,8 @@ export default function GameContextProvider({
   const [isGameDetailLoading, setGeameDetailLoading] = useState(true);
   const [screenShots, setScreenShots] = useState([]);
 
+  const [searchGames, setSearchGames] = useState([]);
+
   useEffect(() => {
     const loadData = async () => {
       const newGamesData = await axios.get(newGamesUrl());
@@ -66,7 +73,7 @@ export default function GameContextProvider({
     loadData();
   }, []);
 
-  async function fetchGameDetail(gameId: number) {
+  const fetchGameDetail = async (gameId: number) => {
     resetGameDetail();
 
     const gameDetailData = await axios.get(gameDetailsUrl(gameId));
@@ -76,13 +83,18 @@ export default function GameContextProvider({
     setScreenShots(screenShootsData.data.results);
 
     setGeameDetailLoading(false);
-  }
+  };
 
-  function resetGameDetail() {
+  const fetchSearchGames = async (gameName: string) => {
+    const searchGameData = await axios.get(searchGameUrl(gameName));
+    setSearchGames(searchGameData.data);
+  };
+
+  const resetGameDetail = () => {
     setGeameDetailLoading(true);
     setGameDetail([]);
     setScreenShots([]);
-  }
+  };
 
   const getNewGames = () => newGames;
   const getPopularGames = () => popularGames;
@@ -93,6 +105,11 @@ export default function GameContextProvider({
 
   const gameDetailLoading = () => isGameDetailLoading;
   const getScreenShots = () => screenShots;
+
+  const getSearchGames = () => searchGames;
+  const setSearchGamesEmpty = () => {
+    setSearchGames([]);
+  };
 
   return (
     <GameContext.Provider
@@ -105,6 +122,9 @@ export default function GameContextProvider({
         getGameDetail,
         gameDetailLoading,
         getScreenShots,
+        fetchSearchGames,
+        getSearchGames,
+        setSearchGamesEmpty,
       }}
     >
       {children}

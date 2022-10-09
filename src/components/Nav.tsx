@@ -9,9 +9,7 @@ export default function Nav() {
     e.preventDefault();
     console.log(inputRef.current?.value);
 
-    if (inputRef.current !== null) {
-      inputRef.current.value = "";
-    }
+    if (inputRef.current !== null) inputRef.current.value = "";
   };
 
   return (
