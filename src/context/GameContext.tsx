@@ -87,7 +87,7 @@ export default function GameContextProvider({
 
   const fetchSearchGames = async (gameName: string) => {
     const searchGameData = await axios.get(searchGameUrl(gameName));
-    setSearchGames(searchGameData.data);
+    setSearchGames(searchGameData.data.results);
   };
 
   const resetGameDetail = () => {
@@ -107,6 +107,7 @@ export default function GameContextProvider({
   const getScreenShots = () => screenShots;
 
   const getSearchGames = () => searchGames;
+
   const setSearchGamesEmpty = () => {
     setSearchGames([]);
   };

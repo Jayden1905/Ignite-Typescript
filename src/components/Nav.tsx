@@ -1,35 +1,45 @@
 import { motion } from "framer-motion";
 import { SyntheticEvent, useRef } from "react";
 import logo from "../assets/logo.svg";
+import { useGameContext } from "../context/GameContext";
 
 export default function Nav() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { fetchSearchGames, setSearchGamesEmpty } = useGameContext();
 
   const onSubmitHandler = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log(inputRef.current?.value);
+
+    if (inputRef.current?.value !== undefined) {
+      fetchSearchGames(inputRef.current?.value);
+    }
 
     if (inputRef.current !== null) inputRef.current.value = "";
   };
 
   return (
-    <motion.nav className="grid text-center place-items-center px-20 py-10">
-      <div className="logo flex justify-center p-4 cursor-pointer gap-2">
-        <img src={logo} alt="logo" className="w-8 h-8" />
+    <motion.nav className="grid place-items-center px-20 py-10 text-center">
+      <div className="logo flex cursor-pointer justify-center gap-2 p-4">
+        <img
+          src={logo}
+          alt="logo"
+          className="h-8 w-8 cursor-pointer"
+          onClick={setSearchGamesEmpty}
+        />
         <h1 className="text-3xl">Ignite</h1>
       </div>
       <form
-        className="search w-full h-full flex justify-center"
+        className="search flex h-full w-full justify-center"
         onSubmit={onSubmitHandler}
       >
         <input
           ref={inputRef}
           type="text"
-          className="w-[30%] h-fll p-1 border-none text-2xl outline-none shadow-lg"
+          className="h-fll w-[30%] border-none p-1 text-2xl shadow-lg outline-none"
         />
         <button
           type="submit"
-          className="text-2xl border-none p-1 cursor-pointer bg-red-400 text-white"
+          className="cursor-pointer border-none bg-red-400 p-1 text-2xl text-white"
         >
           Search
         </button>
